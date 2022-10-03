@@ -11,6 +11,7 @@ namespace IndianCensusProject
         CensusAdapter censusAdapter;
         string censusFilePath = @"E:\Bridgelabz\C_#_Mssql_Programes_and_Projects\Indian_States_Census_Analyser\IndianStatesCensusAnalyser\IndianStateCensusInformation.csv";
         string invalidFileCsvPath = @"E:\Bridgelabz\C_#_Mssql_Programes_and_Projects\Indian_States_Census_Analyser\IndianStatesCensusAnalyser\InvalidCensusFile.csv";
+        string invalidFileTypePath = @"E:\Bridgelabz\C_#_Mssql_Programes_and_Projects\Indian_States_Census_Analyser\IndianStatesCensusAnalyser\InvalidCensusFile.csv";
         [TestInitialize]
         public void SetUp()
         {
@@ -42,5 +43,22 @@ namespace IndianCensusProject
                 Assert.AreEqual(ex.Message, "File not found!");
             }
         }
+
+        //TC1.3:Given the State Census CSV File when correct but type incorrect Returns a custom Exception
+        [TestMethod]
+        [TestCategory("Invalid File Type")]
+        public void TestMethodToCheckInvalidFileType()
+        {
+            try
+            {
+                censusAdapter.GetCensusData(invalidFileTypePath, "State,Population,Increase,Area(Km2),Density,Sex-Ratio,Literacy");
+
+            }
+            catch (CensusCustomException ex)
+            {
+                Assert.AreEqual(ex.Message, "Invalid file type");
+            }
+        }
+
     }
 }
