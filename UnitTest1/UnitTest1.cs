@@ -13,6 +13,8 @@ namespace IndianCensusProject
         string invalidFileCsvPath = @"E:\Bridgelabz\C_#_Mssql_Programes_and_Projects\Indian_States_Census_Analyser\IndianStatesCensusAnalyser\InvalidCensusFile.csv";
         string invalidFileTypePath = @"E:\Bridgelabz\C_#_Mssql_Programes_and_Projects\Indian_States_Census_Analyser\IndianStatesCensusAnalyser\InvalidCensusFile.csv";
         string invalidDelimiterFilePath = @"E:\Bridgelabz\C_#_Mssql_Programes_and_Projects\Indian_States_Census_Analyser\IndianStatesCensusAnalyser\InvalidCensusFile.csv";
+        string invalidHeaderFilePath = @"E:\Bridgelabz\C_#_Mssql_Programes_and_Projects\Indian_States_Census_Analyser\IndianStatesCensusAnalyser\InvalidCensusFile.csv";
+
         [TestInitialize]
         public void SetUp()
         {
@@ -74,6 +76,21 @@ namespace IndianCensusProject
             catch (CensusCustomException ex)
             {
                 Assert.AreEqual(ex.Message, "Invalid Delimiter");
+            }
+        }
+
+        //TC1.5:Given the State Census CSV File when correct but csv header incorrect Returns a custom Exception
+        [TestMethod]
+        [TestCategory("Invalid Header")]
+        public void TestMethodToCheckInvalidHeader()
+        {
+            try
+            {
+                censusAnalyzer.LoadCsv(invalidHeaderFilePath, "State,Population,Increase,Area(Km2),Density,Sex-Ratio,Literacy");
+            }
+            catch (CensusCustomException ex)
+            {
+                Assert.AreEqual(ex.Message, "Incorrect Header");
             }
         }
 
